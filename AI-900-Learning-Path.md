@@ -427,11 +427,102 @@ The weights in a neural network are central to how it calculates predicted value
 ### Summary
 
 ## Module 4: Get Started with Machine Learning in Azure (1000 XP)
-### Introduction
 ### Define the problem
+This is done by understanding
+- What the models output should be
+- Type of machine learning task 
+- Crietria making the model successful
+
+Machine learning tasks
+- Classification: Predict a category value
+- Regression: Predict a numeric value
+- Time-series forecasting: Predict a value at a future time
+- Computer vision: Analyze images and detect objects in images
+- natural language processing: Analyze text and extract meaning
+
+Scenario flow
+1. Load data: import and inspect dataset
+2. Preprocess data: normalize and clean for consistency
+3. Split data: seperate data into training and validation sets
+4. Choose model: select and configure algorithm
+5. Train model: Learn patterns from the data
+6. Score model: generate predictions on test data
+7. Evaluate model: compare predicted values to actual values
 ### Get and prepare data
+To train a model you need to 
+- identify data source and format
+- choose how to serve the data
+- design a data ingestion solution
+
+Data ingestion
+- Extract, transform, load (ETL)
+- Data ingestion pipeline can be used to move and transform data
+- Data ingestion pipeline is a sequence of tasks that move and transform data
+- Such pipelines can be created using azure services like
+    - Azure synapse analytics
+    - Azure Databricks
+    - Azure Machine learning
+- common approach for data ingestion
+    1. Extract raw data
+    2. Copy and transform the data with Azure synapse analytics
+    3. Store the prepared data in an Azure Blob storage 
+    4. Train the model with Azure Machine learning
+
+
+
 ### Train the model
+Services
+- Azure Machine Learning
+    - Gives many options to train and manage your ml models.
+    - Can choose to  work with the studio for a UI experience or manage the ml workloads with python SDK or CLI for code-first experience
+- Azure Databricks
+    - Data analytics platform that can you can use for data engineering and data science.
+    Uses distibuted spark compute to efficiently process large datasets.
+    - YOu can train & manage models with Azure databricks or integrate Azure databricks with other services such as Azure machine learning
+- Azure Fabric
+    - Integrated analytics plafrom designed to streamline data workflows between data analysitcs, engineer and scienctists 
+    - you can prepare data, train model, use the trained model to fenerate predictions, and visualize the data in power bi reports
+- Foundry tools
+    - Collection of prebuilt ml models that can be used for common ml taks ect object detect in images
+    - Modles offered as an API which can intefrate with my application
+    - Some models can be customized with own training data 
+
+#### Azure Machine learning
+A cloud seervice for training, deploying and managing ml models. its taks include
+- Exploring data and preparing it for modeling
+- Trianing and evaluating ml models
+- Registering and managing trained models
+- Deploying trained models for use by apps and services
+- Reviewing and applyign repsonsible AI principles
+
+Features
+- Centralized storage and management of datasets for model training and evaluation.
+- On-demand compute resources on which you can run machine learning jobs, such as training a model.
+- Automated machine learning (AutoML), which makes it easy to run multiple training jobs with different algorithms and parameters to find the best model for your data.
+- Visual tools to define orchestrated pipelines for processes such as model training or inferencing.
+- Integration with common machine learning frameworks such as MLflow, which make it easier to manage model training, evaluation, and deployment at scale.
+- Built-in support for visualizing and evaluating metrics for responsible AI, including model explainability, fairness assessment, and others.
 ### Use Azure Machine Learning studio
+Azure Machine Learning studio is a web-based interface for training and managing ml models.
+You can
+- Import and explore data.
+- Create and use compute resources.
+- Run code in notebooks.
+- Use visual tools to create jobs and pipelines.
+- Use automated machine learning to train models.
+- View details of trained models, including evaluation metrics, responsible AI information, and training parameters.
+- Deploy trained models for on-request and batch inferencing.
+- Import and manage models from a comprehensive model catalog.
+
+Deciding between compute options
+Monitor how long it taks to train the model and how much compute is used to execute the code
+- CPU: less expensive but slower, for smaller tabular datasets
+- GPU: more expensive but faster, for larger tabular datasets and unstructured data like images and text
+
+#### Azure automated machine learning
+You are automatically assigned to a compute resource to run the training job. 
+You have access to your own datasets and your trained ml models can be deployed as services
+
 ### Integrate a model
 ### Summary
 
