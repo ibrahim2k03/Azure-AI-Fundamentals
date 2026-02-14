@@ -694,37 +694,820 @@ Multiple agents can collaborate—each with its own specialty. One might gather 
 # Module 6: Get Started with Generative AI and Agents in Microsoft Foundry (800 XP)
 ## Introduction
 ## Understand generative AI applications
+You can categorize industry and personal generative AI into three buckets.
+- **Ready-to-use**: These applications are ready-to-use generative AI applications. They do not require any programming work on the user's end to utilize the tool. You can start simply by asking the assistant a question.
+- **Extendable**: Some ready-to-use applications can also be extended using your own data. These customizations enable the assistant to better support specific business processes or tasks. Microsoft Copilot is an example of technology that is ready-to-use and extendable.
+- **Applications you build from the foundation**: You can build your own assistants and assistants with agentic capabilities starting from a language model.
+
 ## Understand generative AI development in Foundry
+**Microsoft Foundry**: Microsoft's unified platform for enterprise AI operations, model builders, and application development.
+- As a PaaS (platform as a service), Microsoft Foundry gives developers control over the customization of language models used for building applications. 
+    - These models can be deployed in the cloud and consumed from custom-developed apps and services.
+- You can use Microsoft Foundry, a user interface for building, customizing, and managing AI applications and agents—especially those powered by generative AI.
+
+Components of Microsoft Foundry include:
+- **Foundry Model Catalog**: A centralized hub for discovering, comparing, and deploying a wide range of models for generative AI development.
+- **Playgrounds**: Ready-to-use environments for quickly testing ideas, trying out models, and exploring Foundry Models.
+- **Foundry Tools**: In Microsoft Foundry, you can build, test, see demos, and deploy Foundry Tools.
+- **Solutions**: You can build agents and customize models in Microsoft Foundry.
+- **Observability**: Ability to monitor usage and performance of your application's models.
+
 ## Understand Foundry's model catalog
+Microsoft Foundry provides a marketplace containing models sold directly by Microsoft and models from its partners and community.
+
+Azure OpenAI in Foundry models make up Microsoft's first-party model family and are considered foundation models. 
+    - **Foundation models** are pretrained on large texts and can be fine-tuned for specific tasks with a relatively small dataset.
+You can deploy the models from Microsoft Foundry model catalog to an endpoint without any extra training. If you want the model to be specialized in a task, or perform better on domain-specific knowledge, you can also choose to customize a foundation model.
+
+To choose the model that best fits your needs
+- You can test out different models in a playground setting and utilize model leaderboards (preview). 
+    - Model leaderboards provide a way to see what models are performing best in different criteria such as quality, cost, and throughput. 
+    - You can also see graphical comparisons of models based on specific metrics.
+
+
 ## Understand Foundry capabilities
+
+- Microsoft Foundry provides a user interface based around hubs and projects
+- Creating a hub provides more comprehensive access to Azure AI and Azure Machine Learning
+- Within a hub, you can create projects
+- Projects provide more specific access to models and agent development
+
+- When you create an Azure AI Hub, several other resources are created in tandem, including a Foundry Tools resource
+-Foundry Tools
+    -Azure Speech
+    -Azure Language
+    -Azure Vision
+    -Microsoft Foundry Content Safety
+
+- In addition to demos, Microsoft Foundry provides playgrounds to test Foundry Tools and other models from the model catalog
+
+**four of the main ways you can customize models in Microsoft Foundry.**
+
+**Using Grounding Data**
+- Ensures system outputs are aligned with factual, contextual, or reliable data sources
+- Links models to databases, search engines, or domain-specific knowledge bases
+- Anchors responses to trusted data sources for enhanced trustworthiness
+
+**Implementing Retrieval-Augmented Generation (RAG)**
+- Connects language models to organization's proprietary databases
+- Retrieves relevant information from curated datasets for accurate responses
+- Provides up-to-date, domain-specific information for real-time applications
+- Ideal for customer support and knowledge management systems
+
+**Fine-Tuning**
+- Further trains pretrained models on smaller, task-specific datasets
+- Specializes models for particular applications requiring domain knowledge
+- Improves accuracy and reduces irrelevant or inaccurate responses
+- Adapts models to specific domain requirements
+
+**Managing Security and Governance Controls**
+- Manages access, authentication, and data usage
+- Prevents publication of incorrect or unauthorized information
+- Ensures proper security protocols for AI systems
+
 ## Understand observability
-## Summary
+Ways to measure generative AI's response quality. These include:
+- **Performance and quality evaluators**: assess the accuracy, groundedness, and relevance of generated content.
+- **Risk and safety evaluators**: assess potential risks associated with AI-generated content to safeguard against content risks. This includes evaluating an AI system's predisposition towards generating harmful or inappropriate content.
+- **Custom evaluators**: industry-specific metrics to meet specific needs and goals.
+
+### Evaluators
+Evaluators are specialized tools in Microsoft Foundry that measure the quality, safety, and reliability of AI responses.
+Examples
+- **Groundedness**: measures how consistent the response is with respect to the retrieved context.
+- **Relevance**: measures how relevant the response is with respect to the query.
+- **Fluency**: measures natural language quality and readability.
+- **Coherence**: measures logical consistency and flow of responses.
+- **Content safety**: comprehensive assessment of various safety concerns.
 
 # Module 7: Introduction to Text Analysis Concepts (1000 XP)
 ## Introduction
+- Enables machines to extract meaning, structure, and insights from unstructured text. 
+- Organizations use text analysis to transform customer feedback, support tickets, contracts, and social media posts into actionable intelligence.
+
+### Use cases for text analysis include:
+- **Key term extraction**: Identifying important words and phrases in text, to help determine the topics and themes it discusses.
+- **Entity detection**: Identifying named entities mentioned in text; for example, places, people, dates, and organizations.
+- **Text classification**: Categorizing text documents based on their contents. For example, filtering email as spam or not spam.
+- **Sentiment analysis**: A particular form of text classification that predicts the sentiment of text - for example, categorizing social media posts as positive, neutral, or negative.
+- **Text summarization**: Reducing the volume of text while retaining its salient points. For example, generating a short one-paragraph summary from a multi-page document.
+
 ## Tokenization
+Corpus: A body of text to be analyzed.
+The first step in analyzing a corpus is to break it down into tokens. 
+- Think of each distinct word in the text as a token. In reality, tokens can be generated for partial words or combinations of words and punctuation.
+    - For example, consider this phrase from a famous US presidential speech: "We choose to go to the moon". The phrase can be broken down into the following tokens, with numeric identifiers:
+    
+### Pre-processing techniques that might apply to tokenization
+### Text normalization 
+- Before generating tokens, you might choose to normalize the text by removing punctuation and changing all words to lower case. 
+- For analysis that relies purely on word frequency, this approach improves overall performance. 
+    - However, some semantic meaning could be lost - for example, consider the sentence "Mr Banks has worked in many banks.". You may want your analysis to differentiate between the person "Mr Banks" and the "banks" in which he's worked. You might also want to consider "banks." as a separate token to "banks" because the inclusion of a period provides the information that the word comes at the end of a sentence
+**Stop word removal**:
+- Stop words are words that should be excluded from the analysis. 
+    -For example, "the", "a", or "it" make text easier for people to read but add little semantic meaning. 
+- By excluding these words, a text analysis solution might be better able to identify the important words.
+
+### N-gram extraction
+- Finding multi-term phrases such as "artificial intelligence" or "natural language processing". 
+- A single word phrase is a unigram, a two-word phrase is a bigram, a three-word phrase is a trigram, and so on. 
+- In many cases, by considering frequently appearing sequences of words as groups, a text analysis algorithm can make better sense of the text.
+### Stemming
+- A technique used to consolidate words by stripping endings like "s", "ing", "ed", and so on, before counting them; so that words with the same etymological root, like "powering", "powered", and "powerful", are interpreted as being the same token ("power").
+### Lemmatization
+- Another approach to reducing words to their base or dictionary form (called a lemma). 
+- Unlike stemming, which simply chops off word endings, lemmatization uses linguistic rules and vocabulary to ensure the resulting form is a valid word (for example, "running": → "run", "global" → "globe").
+### Parts of speech (POS) tagging: 
+- Labeling each token with its grammatical category, such as noun, verb, adjective, or adverb. 
+- This technique uses linguistic rules and often statistical models to determine the correct tag based on both the token itself and its context within the sentence.
+
 ## Statistical text analysis
+### Frequency Analyis
+- Count the number of times each normalized token appears. The assumption is that terms that are used more frequently in the document can help identify the subjects or themes discussed. 
+
+### Term Frequency - Inverse Document Frequency (TF-IDF)
+
+**Purpose of TF-IDF:**
+- Determines which tokens are most relevant in each individual document across multiple documents
+- Addresses limitation of simple frequency analysis when differentiating between documents in same corpus
+- Calculates scores based on term frequency in one document vs. frequency across entire document collection
+
+**Problem with Simple Frequency Analysis:**
+- Most common words often appear in multiple documents (e.g., "agent", "Microsoft", "AI")
+- Doesn't help discriminate between individual documents covering similar themes
+- Makes it difficult to determine specific topics in each document
+
+**TF-IDF Three-Step Calculation Process:**
+
+**1. Calculate Term Frequency (TF):**
+- Simple count of how many times a word appears in a document
+- Example: If "agent" appears 6 times, then tf(agent) = 6
+
+**2. Calculate Inverse Document Frequency (IDF):**
+- Measures how common or rare a word is across all documents
+- Formula: idf(t) = log(N / df(t))
+  - N = total number of documents
+  - df(t) = number of documents containing word t
+- Words appearing in every document have IDF of 0 (no discriminative weight)
+
+**3. Calculate TF-IDF Score:**
+- Formula: tfidf(t, d) = tf(t, d) * log(N / df(t))
+- High score: word appears often in one document but rarely in others
+- Low score: word is common across many documents
+
+### "Bag-of-words" Machine Learning Techniques
+
+**Concept:**
+- Feature extraction technique representing text tokens as vectors of word frequencies
+- Ignores grammar and word order, focusing on word occurrence patterns
+- Input for machine learning algorithms like Naive Bayes classifier
+
+**Applications:**
+- **Email Spam Filtering**: Words like "miracle cure", "lose weight fast", "anti-aging" appear more frequently in spam
+- **Sentiment Analysis**: Classifies text by emotional tone using word frequency features
+    - Assigns sentiment labels like "positive" or "negative" based on word patterns
+
+### TextRank
+
+**Concept:**
+- Unsupervised graph-based algorithm modeling text as network of connected nodes
+- Each sentence becomes a node, edges weighted by word similarity
+- Commonly used for text summarization by identifying key sentences
+
+**Algorithm Process:**
+
+**1. Build a Graph:**
+- Each sentence becomes a node
+- Edges connect sentences weighted by similarity (word overlap or cosine similarity)
+
+**2. Calculate Ranks Iteratively:**
+- Formula: TextRank(Sᵢ) = (1-d) + d * Σ(wⱼᵢ / Σwⱼₖ) * TextRank(Sⱼ)
+- d = damping factor (typically 0.85)
+- wⱼᵢ = weight of edge from sentence j to sentence i
+
+**3. Extract Top-Ranked Sentences:**
+- After convergence, highest-scoring sentences selected as summary
+
+**Key Features:**
+- **Extractive Summarization**: Selects subset of original text, no new text generated
+- **Word-Level Application**: Can extract keywords by treating words as nodes
+- **Co-occurrence Based**: Edges represent word co-occurrence within fixed windows
+
 ## Semantic language models
+
+**Evolution of NLP:**
+- State-of-the-art NLP advanced with deep learning language models
+- Models encapsulate semantic relationships between tokens
+- Core concept: encoding language tokens as vectors (embeddings)
+- Vector-based approach enables efficient text analysis through mathematical relationships
+
+**Vector-Based Text Representation:**
+- **Word2Vec and GloVe**: Dense vectors with multiple dimensions reflecting semantic characteristics
+- **Contextualized Embeddings**: Use attention to consider tokens in context 
+- **Training Process**: Dimension values assigned based on token usage in training text
+- **Key Advantage**: Semantically similar tokens have similar vector orientations
+
+### Representing Text as Vectors
+
+**Vector Fundamentals:**
+- Points in multidimensional space with coordinates along multiple axes
+- Each vector describes direction and distance from origin
+- Similar semantic meanings result in similar vector orientations
+
+**Example 3D Embeddings:**
+- dog: [0.8, 0.6, 0.1] 
+- puppy: [0.9, 0.7, 0.4] 
+- cat: [0.7, 0.5, 0.2] 
+- kitten: [0.8, 0.6, 0.5] 
+- young: [0.1, 0.1, 0.3] 
+- ball: [0.3, 0.9, 0.1] 
+- tree: [0.2, 0.1, 0.9]
+
+**Vector Similarity Patterns:**
+- "dog" and "cat" similar (both domestic animals) → similar orientations
+- "puppy" and "kitten" similar (both young animals) → similar orientations
+- "tree", "young", "ball" have distinct orientations → different semantic meanings
+
+### Finding Related Terms
+
+**Cosine Similarity Formula:**
+- cosine_similarity(A, B) = (A · B) / (||A|| * ||B||)
+- Measures angle between vectors (0-1 range, where 1 = identical direction)
+- Higher values indicate greater semantic similarity
+
+**Example "Odd One Out" Analysis:**
+- dog vs cat: 0.992 (high similarity - both domestic animals)
+- dog vs tree: 0.333 (low similarity - different categories)
+- cat vs tree: 0.452 (low similarity - different categories)
+- Conclusion: "tree" is the odd one out
+
+### Vector Translation Operations
+
+**Vector Arithmetic for Linguistic Relationships:**
+- Addition combines semantic concepts
+- Subtraction removes semantic characteristics
+- Results produce new vectors representing related concepts
+
+**Examples of Vector Operations:**
+- dog + young = [0.9, 0.7, 0.4] = puppy (adult dog + youth = young dog)
+- cat + young = [0.8, 0.6, 0.5] = kitten (adult cat + youth = young cat)
+- puppy - young = [0.8, 0.6, 0.1] = dog (young dog - youth = adult dog)
+- kitten - young = [0.7, 0.5, 0.2] = cat (young cat - youth = adult cat)
+
+**Analogical Reasoning:**
+- Solves analogy questions through vector mathematics
+- Example: "puppy is to dog as kitten is to ?"
+- Calculation: kitten - puppy + dog = cat
+- Demonstrates how vector operations capture linguistic relationships
+
+### Using Semantic Models for Text Analysis
+
+**Text Summarization:**
+- Encodes each sentence as vector (averaging constituent word embeddings)
+- Identifies sentences most representative of overall document meaning
+- Extracts central sentences to form coherent summary
+
+**Keyword Extraction:**
+- Compares each word's embedding to document's overall semantic representation
+- Words most similar to document vector indicate key topics
+- Finds terms central to document's main themes
+
+**Named Entity Recognition:**
+- Fine-tunes models to recognize entity types (people, organizations, locations)
+- Learns vector representations that cluster similar entity types together
+- Examines token embeddings and contextual patterns for entity identification
+
+**Text Classification:**
+- Represents documents as aggregate vectors (mean of all word embeddings)
+- Uses document vectors as features for machine learning classifiers
+- Groups related content through vector orientation similarities
+- Effective for sentiment analysis, topic categorization, and content classification
+
 ## Summary
 
 # Module 8: Get Started with Text Analysis in Microsoft Foundry (800 XP)
 ## Introduction
+
+**Natural Language Processing (NLP):**
+- Field of artificial intelligence focused on enabling machines to understand, interpret, and respond to human language
+- Goal: analyze and extract meaning or structure from existing text
+
+**NLP Applications:**
+
+**Customer Feedback Analysis:**
+- Analyzes large volumes of customer reviews, support tickets, or survey responses
+- Applies sentiment analysis and key phrase extraction
+- Identifies trends and detects dissatisfaction early
+- Improves customer experiences through data-driven insights
+
+**Healthcare Text Analysis:**
+- Extracts clinical information from unstructured medical documents
+- Uses entity recognition and text analytics for health
+- Identifies symptoms, medications, and diagnoses
+- Supports faster and more accurate medical decision-making
+
+**Conversational AI with Virtual Agents:**
+- Powers virtual assistants with Azure's language solutions
+- Interprets user intent and translates conversations
+- Extracts relevant entities from user input
+- Responds appropriately based on analyzed context
+
 ## Understand natural language processing on Azure
+
+**Core NLP Tasks:**
+- Language detection
+- Sentiment analysis
+- Named entity recognition
+- Text classification
+- Translation
+- Summarization
+
+**Foundry Tools for NLP:**
+
+**Azure Language Service:**
+- Cloud-based service for understanding and analyzing text
+- Features include:
+  - Sentiment analysis
+  - Key phrase identification
+  - Text summarization
+  - Conversational language understanding
+- Comprehensive text analysis capabilities
+
+**Azure Translator Service:**
+- Cloud-based translation service
+- Uses Neural Machine Translation (NMT)
+- Analyzes semantic context of text
+- Provides more accurate and complete translations
+
 ## Understand Azure Language's text analysis capabilities
+
+**Azure Language Overview:**
+- Part of Foundry Tools offerings for advanced natural language processing
+- Performs analysis over unstructured text
+
+**Core Text Analysis Features:**
+- **Named Entity Recognition**: Identifies people, places, events, and more 
+- **Entity Linking**: Identifies known entities with Wikipedia links
+- **PII Detection**: Identifies personally sensitive information, including PHI
+- **Language Detection**: Identifies text language and returns language codes (e.g., "en" for English)
+- **Sentiment Analysis**: Identifies positive/negative text and opinion mining
+- **Summarization**: Summarizes text by identifying most important information
+- **Key Phrase Extraction**: Lists main concepts from unstructured text
+
+### Entity Recognition and Linking
+
+**Entity Types and Subtypes:**
+- **Person**: "Bill Gates", "John"
+- **Location**: "Paris", "New York"
+- **Organization**: "Microsoft"
+- **Quantity Types**:
+  - Currency: "10.99"
+  - Dimension: "10 miles", "40 cm"
+  - Temperature: "45 degrees"
+- **DateTime Types**:
+  - DateTime: "6:30PM February 4, 2012"
+  - TimeRange: "6pm to 7pm"
+  - Duration: "1 minute and 45 seconds"
+- **Other Types**:
+  - URL: "https://www.bing.com"
+  - Email: "support@microsoft.com"
+  - US Phone Number: "(312) 555-0176"
+  - IP Address: "10.0.1.125"
+
+**Entity Linking:**
+- Disambiguates entities by linking to specific references
+- Returns relevant Wikipedia article URLs for recognized entities
+- Example: "Seattle" → https://en.wikipedia.org/wiki/Seattle
+
+### Language Detection
+
+**Detection Results:**
+- Language name (e.g., "English")
+- ISO 6391 language code (e.g., "en")
+- Confidence score for language detection (e.g., 0.9)
+
+**Detection Algorithm:**
+- Identifies predominant language in text
+- Considers phrase length and total text amount per language
+- Returns predominant language with confidence score
+
+**Challenges:**
+- Ambiguous content with limited text or punctuation only
+- Example: ":-)" → Unknown language, NaN score
+- Mixed language content presents detection difficulties
+
+### Sentiment Analysis and Opinion Mining
+
+**Analysis Approach:**
+- Uses prebuilt machine learning classification model
+- Evaluates text and returns sentiment scores for each sentence
+
+### Key Phrase Extraction
+
+**Purpose:**
+- Identifies main points from text
+- Summarizes main concepts efficiently
+- Reduces time needed to read through large volumes of reviews
+
 ## Azure Language's conversational AI capabilities
+
+**Conversational AI Overview:**
+- Solutions that enable dialog between AI and humans
+
+
+### Question Answering
+**Key Features:**
+- Creates conversational AI solutions for customer queries
+- Responds immediately and accurately to user concerns
+- Natural multi-turn conversation capabilities
+- Bot implementation across multiple platforms (websites, social media)
+
+**Azure Language Question Answering:**
+- Custom question answering feature
+- Creates knowledge base of question-answer pairs
+- Queries knowledge base using natural language input
+
+### Conversational Language Understanding (CLU)
+
+**Core Capabilities:**
+- Builds language models to interpret phrase meanings in conversations
+- Predicts overall intention of incoming phrases
+- Extracts important information from user input
+
+**Application Examples:**
+- **Device Control**: "Turn the light off" → understands action needed
+- **Command and Control**: Voice-activated system operations
+- **Enterprise Support**: Business process automation
+- **End-to-End Conversations**: Complete dialog flows
+
+
 ## Azure Translator capabilities
+
+**Translation Evolution:**
+- Early machine translation used literal word-for-word translation
+- **Literal Translation Issues**:
+  - No equivalent word in target language
+  - Changed phrase meaning or incorrect context
+  - Missing semantic understanding
+
+**AI-Powered Translation:**
+- Understands words and semantic context
+- Considers grammar rules, formal vs. informal language
+- Returns more accurate phrase-level translations
+
+**Azure Translator Features:**
+- **Language Support**: Text-to-text translation between 130+ languages
+- **Multi-Target Translation**: One source language to multiple target languages simultaneously
+- **Document Structure Preservation**: Maintains original formatting during document translation
+
+**Azure Translator Core Capabilities:**
+
+**Text Translation:**
+- Quick and accurate real-time translation
+- Supports all 130+ languages
+
+**Document Translation:**
+- Translates multiple documents simultaneously
+- Preserves original document structure
+
+**Custom Translation:**
+- Enterprise-grade neural machine translation (NMT) systems
+- Customizable for specific industries or use cases
+- App developer and language service provider integration
+
+**Platform Integration:**
+
+**Microsoft Foundry:**
+- Unified platform for enterprise AI operations
+- Model builders and application development
+- Enterprise AI operations management
+
+**Microsoft Translator Pro:**
+- Mobile application for enterprises
+- Seamless real-time speech-to-speech translation
+- Designed for business use cases
+
 ## Get started in Microsoft Foundry
-## Summary
+
+Azure Language and Azure Translator provide the building blocks for incorporating language capabilities into applications. As one of many Foundry Tools, you can create solutions in several ways including:
+- The Microsoft Foundry portal
+- A software development kit (SDK) or REST API
+
+To use Azure Language or Azure Translator in an application, you must provision an appropriate resource in your Azure subscription. You can choose either a single-service resource or a Foundry Tools resource.
+
+- Language resource - choose if you only plan to use Azure Language services, or if you want to manage access and billing for the resource separately from other services.
+- Translator resource - choose if you want to manage access and billing for each service individually.
+- Foundry Tools resource - choose if you plan to use Azure Language in combination with other Foundry Tools, and you want to manage access and billing for these services together.
+
+
+### Get started in Microsoft Foundry portal
+Microsoft Foundry provides a unified platform for enterprise AI operations, model builders, and application development. 
+- Microsoft Foundry portal provides a user interface based around hubs and projects. 
+- To use any of the Foundry Tools, including Azure Language or Azure Translator, you create a project in Microsoft Foundry, which will also create a Foundry Tools resource for you.
+
+Projects in Microsoft Foundry help you organize your work and resources effectively. Projects act as containers for datasets, models, and other resources, making it easier to manage and collaborate on AI solutions.
+
 
 # Module 9: Introduction to AI Speech Concepts (800 XP)
-## Introduction
 ## Speech-enabled solutions
+Speech capabilities transform how users interact with AI applications and agents. 
+- Speech recognition converts spoken words into text
+- Speech synthesis generates natural-sounding audio from text. 
+
+Integrating speech into your AI solutions helps you:
+- **Expand accessibility**: Serve users with visual impairments or mobility challenges.
+- **Increase productivity**: Enable multitasking by removing the need for keyboards and screens.
+- **Enhance user experience**: Create natural conversations that feel more human and engaging.
+- **Reach global audiences**: Support multiple languages and regional dialects.
+
+### Common speech recognition scenarios
+Speech recognition, also called speech-to-text, listens to audio input and transcribes it into written text. 
+
+#### Customer service and support
+Service centers use speech recognition to:
+- Transcribe customer calls in real time for agent reference and quality assurance.
+- Route callers to the right department based on what they say.
+- Analyze call sentiment and identify common customer issues.
+- Generate searchable call records for compliance and training.
+Business value: Reduces manual note-taking, improves response accuracy, and captures insights that improve service quality.
+
+#### Voice-activated assistants and agents
+Virtual assistants and AI agents rely on speech recognition to:
+- Accept voice commands for hands-free control of devices and applications.
+- Answer questions using natural language understanding.
+- Complete tasks like setting reminders, sending messages, or searching information.
+- Control smart home devices, automotive systems, and wearable technology.
+Business value: Increases user engagement, simplifies complex workflows, and enables operation in situations where screens aren't practical.
+
+#### Meeting and interview transcription
+Organizations transcribe conversations to:
+- Create searchable meeting notes and action item lists.
+- Provide real-time captions for participants who are deaf or hard of hearing.
+- Generate summaries of interviews, focus groups, and research sessions.
+- Extract key discussion points for documentation and follow-up.
+Business value: Saves hours of manual transcription work, ensures accurate records, and makes spoken content accessible to everyone.
+
+#### Healthcare documentation
+Clinical professionals use speech recognition to:
+- Dictate patient notes directly into electronic health records.
+- Update treatment plans without interrupting patient care.
+- Reduce administrative burden and prevent physician burnout.
+- Improve documentation accuracy by capturing details in the moment.
+Business value: Increases time available for patient care, improves record completeness, and reduces documentation errors.
+
+### Common speech synthesis scenarios
+Speech synthesis, also called text-to-speech, converts written text into spoken audio. 
+#### Conversational AI and chatbots
+AI agents use speech synthesis to:
+- Respond to users with natural-sounding voices instead of requiring them to read text.
+Business value: Makes AI agents more approachable, reduces customer effort, and extends service availability to voice-only channels.
+
+#### Accessibility and content consumption
+Applications generate audio to:
+- Read web content, articles, and documents aloud for users with visual impairments.
+- Support users with reading disabilities like dyslexia.
+- Enable content consumption while driving, exercising, or performing other tasks.
+- Provide audio alternatives for text-heavy interfaces.
+Business value: Expands your audience reach, demonstrates commitment to inclusion, and improves user satisfaction.
+
+#### Notifications and alerts
+Systems use speech synthesis to:
+- Announce important alerts, reminders, and status updates.
+- Provide navigation instructions in mapping and GPS applications.
+Business value: Ensures critical information reaches users even when visual attention isn't available, improving safety and responsiveness.
+
+#### E-learning and training
+Educational platforms use speech synthesis to:
+- Create narrated lessons and course content without recording studios.
+- Provide pronunciation examples for language learning.
+- Scale content production across multiple languages.
+Business value: Reduces content creation costs, supports diverse learning styles, and accelerates course development timelines.
+
+#### Entertainment and media
+Content creators use speech synthesis to:
+- Generate character voices for games and interactive experiences.
+- Produce podcast drafts and audiobook prototypes.
+- Create voiceovers for videos and presentations.
+Business value: Lowers production costs, enables rapid prototyping, and creates customized experiences at scale.
+
+### Combining speech recognition and synthesis
+The most powerful speech-enabled applications combine both capabilities to create conversational experiences:
+- Voice-driven customer service: Agents listen to customer questions (recognition), process the request, and respond with helpful answers (synthesis).
+- Interactive voice response (IVR) systems: Callers speak their needs, and the system guides them through options using natural dialogue.
+- Language learning applications: Students speak practice phrases (recognition), and the system provides feedback and corrections (synthesis).
+
+### Key considerations before implementing speech
+Before you add speech capabilities to your application, evaluate these factors:
+- **Audio quality requirements**: Background noise, microphone quality, and network bandwidth affect speech recognition accuracy.
+- **Language and dialect support**: Verify that your target languages and regional variations are supported.
+- **Privacy and compliance**: Understand how audio data is processed, stored, and protected to meet regulatory requirements.
+- **Latency expectations**: Real-time conversations require low-latency processing, while batch transcription can tolerate delays.
+- **Accessibility standards**: Ensure your speech implementation meets WCAG guidelines and doesn't create barriers for some users.
+
 ## Speech recognition
+Speech recognition, also called speech-to-text, enables applications to convert spoken language into written text. 
+The journey from sound wave to text involves six coordinated stages: 
+- Capturing audio
+- Preparing features
+- Modeling acoustic patterns
+- Applying language rules
+- Decoding the most likely words
+- Refining the final output
+
+### Audio capture: Convert analog audio to digital
+Speech recognition begins when a microphone converts sound waves into a digital signal. The system samples the analog audio thousands of times per second—typically 16,000 samples per second (16 kHz) for speech applications—and stores each measurement as a numeric value.
+
+
+#### Why sampling rate matters:
+Higher rates (like 44.1 kHz for music) capture more detail but require more processing.
+Speech recognition balances clarity and efficiency at 8 kHz to 16 kHz.
+Background noise, microphone quality, and distance from the speaker directly impact downstream accuracy.
+
+### Pre-processing: Extract meaningful features
+Raw audio samples contain too much information for efficient pattern recognition. Pre-processing transforms the waveform into a compact representation that highlights speech characteristics while discarding irrelevant details like absolute volume.
+
+#### Mel-Frequency Cepstral Coefficients (MFCCs)
+MFCC is the most common feature extraction technique in speech recognition. It mimics how the human ear perceives sound by emphasizing frequencies where speech energy concentrates and compressing less important ranges.
+
+How MFCC works:
+1. Divide audio into frames: Split the signal into overlapping 20–30 millisecond windows.
+2. Apply Fourier transform: Convert each frame from time domain to frequency domain, revealing which pitches are present.
+3. Map to Mel scale: Adjust frequency bins to match human hearing sensitivity—we distinguish low pitches better than high ones.
+4. Extract coefficients: Compute a small set of numbers (often 13 coefficients) that summarize the spectral shape of each frame.
+
+The result is a sequence of feature vectors—one per frame—that captures what the audio sounds like without storing every sample. These vectors become the input for acoustic modeling.
+
+The vectors are extracted column-wise, with each vector representing the 13 MFCC feature coefficient values for each time-frame:
+
+Frame 1: [ -113.2,  45.3,  12.1,  -3.4,  7.8,  ... ]  # 13 coefficients
+Frame 2: [ -112.8,  44.7,  11.8,  -3.1,  7.5,  ... ]
+Frame 3: [ -110.5,  43.9,  11.5,  -2.9,  7.3,  ... ]
+
+#### Acoustic modeling: Recognize phonemes
+Acoustic models learn the relationship between audio features and phonemes—the smallest units of sound that distinguish words. 
+- English uses about 44 phonemes; for example, the word "cat" comprises three phonemes: /k/, /æ/, and /t/.
+
+
+##### From features to phonemes
+Modern acoustic models use transformer architectures, a type of deep learning network that excels at sequence tasks. The transformer processes the MFCC feature vectors and predicts which phoneme is most likely at each moment in time.
+
+Transformer models achieve effective phoneme prediction through:
+- Attention mechanism: The model examines surrounding frames to resolve ambiguity. For example, the phoneme /t/ sounds different at the start of "top" versus the end of "bat."
+- Parallel processing: Unlike older recurrent models, transformers analyze multiple frames simultaneously, improving speed and accuracy.
+- Contextualized predictions: The network learns that certain phoneme sequences occur frequently in natural speech.
+
+The output of acoustic modeling is a probability distribution over phonemes for each audio frame. For instance, frame 42 might show 80% confidence for /æ/, 15% for /ɛ/, and 5% for other phonemes.
+
+Phonemes are language-specific. A model trained on English phonemes can't recognize Mandarin tones without retraining.
+
+### Language modeling: Predict word sequences
+Phoneme predictions alone don't guarantee accurate transcription. The acoustic model might confuse "their" and "there" because they share identical phonemes. Language models resolve ambiguity by applying knowledge of vocabulary, grammar, and common word patterns. Some ways in which the model guides word sequence prediction include:
+- Statistical patterns: The model knows "The weather is nice" appears more often in training data than "The whether is nice."
+- Context awareness: After hearing "I need to," the model expects verbs like "go" or "finish," not nouns like "table."
+- Domain adaptation: Custom language models trained on medical or legal terminology improve accuracy for specialized scenarios.
+
+### Decoding: Select the best text hypothesis
+Decoding algorithms search through millions of possible word sequences to find the transcription that best matches both acoustic and language model predictions. This stage balances two competing goals: 
+- staying faithful to the audio signal while producing readable, grammatically correct text.
+
+#### Beam search decoding:
+Maintains a shortlist (the "beam") of top-scoring partial transcriptions as it processes each audio frame. At every step, it extends each hypothesis with the next most likely word, prunes low-scoring paths, and keeps only the best candidates.
+
+For a three-second utterance, the decoder might evaluate thousands of hypotheses before selecting "Please send the report by Friday" over alternatives like "Please sent the report buy Friday." Caution
+
+### Post-processing: Refine the output
+The decoder produces raw text that often requires cleanup before presentation. Post-processing applies formatting rules and corrections to improve readability and accuracy.
+
+**Common post-processing tasks:**
+- Capitalization: Convert "hello my name is sam" to "Hello my name is Sam."
+- Punctuation restoration: Add periods, commas, and question marks based on prosody and grammar.
+- Number formatting: Change "one thousand twenty three" to "1,023."
+- Profanity filtering: Mask or remove inappropriate words when required by policy.
+- Inverse text normalization: Convert spoken forms like "three p m" to "3 PM."
+- Confidence scoring: Flag low-confidence words for human review in critical applications like medical transcription.
+
+Azure Speech returns the final transcription along with metadata like word-level timestamps and confidence scores, enabling your application to highlight uncertain segments or trigger fallback behaviors.
+
+### How the pipeline works together
+Each stage builds on the previous one:
+1. Audio capture provides the raw signal.
+2. Pre-processing extracts MFCC features that highlight speech patterns.
+3. Acoustic modeling predicts phoneme probabilities using transformer networks.
+4. Language modeling applies vocabulary and grammar knowledge.
+5. Decoding searches for the best word sequence.
+6. Post-processing formats the text for human readers.
+
+
 ## Speech synthesis
-## Summary
+Speech synthesis, also called text-to-speech (TTS), converts written text into spoken audio.
+
+Speech synthesis systems process text through four distinct stages. Each stage transforms the input incrementally, building toward a final audio waveform that sounds natural and intelligible.
+
+### Text normalization: Standardize the text
+Text normalization prepares raw text for pronunciation by expanding abbreviations, numbers, and symbols into spoken forms.
+
+- Consider the sentence: "Dr. Smith ordered 3 items for $25.50 on 12/15/2023."
+- A normalization system converts it to: "Doctor Smith ordered three items for twenty-five dollars and fifty cents on December fifteenth, two thousand twenty-three."
+
+Common normalization tasks include:
+- Expanding abbreviations ("Dr." becomes "Doctor", "Inc." becomes "Incorporated")
+- Converting numbers to words ("3" becomes "three", "25.50" becomes "twenty-five point five zero")
+- Handling dates and times ("12/15/2023" becomes "December fifteenth, two thousand twenty-three")
+- Processing symbols and special characters ("$" becomes "dollars", "@" becomes "at")
+- Resolving homographs based on context ("read" as present tense versus past tense)
+
+Text normalization prevents the system from attempting to pronounce raw symbols or digits, which would produce unnatural or incomprehensible output.
+
+### Linguistic analysis: Map text to phonemes
+Linguistic analysis breaks normalized text into phonemes (the smallest units of sound) and determines how to pronounce each word. The linguistic analysis stage:
+
+1. Segments text into words and syllables.
+2. Looks up word pronunciations in lexicons (pronunciation dictionaries).
+3. Applies G2P rules or neural models to handle unknown words.
+4. Marks syllable boundaries and identifies stressed syllables.
+5. Determines phonetic context for adjacent sounds.
+
+#### Grapheme-to-phoneme conversion
+Grapheme-to-phoneme (G2P) conversion maps written letters (graphemes) to pronunciation sounds (phonemes). English spelling doesn't reliably indicate pronunciation, so G2P systems use both rules and learned patterns.
+
+For example:
+- The word "though" converts to /θoʊ/
+- The word "through" converts to /θruː/
+- The word "cough" converts to /kɔːf/
+
+Each word contains the letters "ough", but the pronunciation differs dramatically.
+
+Modern G2P systems use neural networks trained on pronunciation dictionaries. These models learn patterns between spelling and sound, handling uncommon words, proper names, and regional variations more gracefully than rule-based systems.
+
+When determining phonemes, linguistic analysis often uses a transformer model to help consider context. For example, the word "read" is pronounced differently in "I read books" (present tense: /riːd/) versus "I read that book yesterday" (past tense: /rɛd/).
+
+### Prosody generation: Determine pronunciation
+Prosody refers to the rhythm, stress, and intonation patterns that make speech sound natural. Prosody generation determines how to say words, not just which sounds to produce.
+
+Elements of prosody
+Prosody encompasses several vocal characteristics:
+- Pitch contours: Rising or falling pitch patterns that signal questions versus statements
+- Duration: How long to hold each sound, creating emphasis or natural rhythm
+- Intensity: Volume variations that highlight important words
+- Pauses: Breaks between phrases or sentences that aid comprehension
+- Stress patterns: Which syllables receive emphasis within words and sentences
+
+Prosody has a significant effect on how spoken text is interpreted. For example, consider how the following sentence changes meaning depending on which syllable or word is emphasized:
+
+#### Transformer-based prosody prediction
+Modern speech synthesis systems use transformer neural networks to predict prosody. Transformers excel at understanding context across entire sentences, not just adjacent words.
+
+**The prosody generation process:**
+1. Input encoding: The transformer receives the phoneme sequence with linguistic features (punctuation, part of speech, sentence structure)
+2. Contextual analysis: Self-attention mechanisms identify relationships between words (for example, which noun a pronoun references, where sentence boundaries fall)
+3. Prosody prediction: The model outputs predicted values for pitch, duration, and energy at each phoneme
+4. Style factors: The system considers speaking style (neutral, expressive, conversational) and speaker characteristics
+
+Transformers predict prosody by learning from thousands of hours of recorded speech paired with transcripts. The model discovers patterns: questions rise in pitch at the end, commas signal brief pauses, emphasized words lengthen slightly, and sentence-final words often drop in pitch.
+
+**Factors influencing prosody choices:**
+- Syntax: Clause boundaries indicate where to pause
+- Semantics: Important concepts receive emphasis
+- Discourse context: Contrasting information or answers to questions may carry extra stress
+- Speaker identity: Each voice has characteristic pitch range and speaking rate
+- Emotional tone: Excitement, concern, or neutrality shape prosodic patterns
+
+The prosody predictions create a target specification: "Produce the phoneme /æ/ at 180 Hz for 80 milliseconds with moderate intensity, then pause for 200 milliseconds."
+
+Prosody dramatically affects naturalness. Robotic-sounding speech often results from flat, monotone prosody—not from imperfect phoneme pronunciation.
+
+### Speech synthesis: Generate audio
+Speech synthesis generates the final audio waveform based on the phoneme sequence and prosody specifications.
+
+#### Waveform generation approaches
+Modern systems use neural vocoders—deep learning models that generate audio samples directly. Popular vocoder architectures include WaveNet, WaveGlow, and HiFi-GAN.
+
+The synthesis process:
+1. Acoustic feature generation: An acoustic model (often a transformer) converts phonemes and prosody targets into mel-spectrograms—visual representations of sound frequencies over time
+2. Vocoding: The neural vocoder converts mel-spectrograms into raw audio waveforms (sequences of amplitude values at 16,000-48,000 samples per second)
+3. Post-processing: The system applies filtering, normalization, or audio effects to match target output specifications
+
+What makes neural vocoders effective:
+- High fidelity: Generate audio quality approaching studio recordings
+- Naturalness: Capture subtle vocal characteristics like breathiness and voice quality
+- Efficiency: Real-time generation on modern hardware (important for interactive applications)
+- Flexibility: Adapt to different speakers, languages, and speaking styles
+
+The vocoder essentially performs the inverse of what automatic speech recognition does—while speech recognition converts audio into text, the vocoder converts linguistic representations into audio.
+
+### The complete pipeline in action
+When you request speech synthesis for "Dr. Chen's appointment is at 3:00 PM":
+- Text normalization expands it to "Doctor Chen's appointment is at three o'clock P M"
+- Linguistic analysis converts it to phonemes: /ˈdɑktər ˈtʃɛnz əˈpɔɪntmənt ɪz æt θri əˈklɑk pi ɛm/
+- Prosody generation predicts pitch rising slightly on "appointment", a pause after "is", and emphasis on "three"
+- Speech synthesis generates an audio waveform matching those specifications
+
+The entire process typically completes in under one second on modern hardware.
 
 # Module 10: Get Started with Speech in Microsoft Foundry (1000 XP)
 ## Introduction
+Azure Speech provides speech to text, text to speech, and speech translation capabilities through speech recognition and synthesis. 
+- You can use prebuilt and custom Speech service models for a variety of tasks, from transcribing audio to text with high accuracy, to identifying speakers in conversations, creating custom voices, and more. 
 ## Understand speech recognition and synthesis
 ## Get started with speech on Azure
 ## Use Azure Speech
