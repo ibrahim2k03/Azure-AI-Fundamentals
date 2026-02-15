@@ -1508,33 +1508,571 @@ The entire process typically completes in under one second on modern hardware.
 ## Introduction
 Azure Speech provides speech to text, text to speech, and speech translation capabilities through speech recognition and synthesis. 
 - You can use prebuilt and custom Speech service models for a variety of tasks, from transcribing audio to text with high accuracy, to identifying speakers in conversations, creating custom voices, and more. 
+
 ## Understand speech recognition and synthesis
+Speech recognition takes the spoken word and converts it into data that can be processed - often by transcribing it into text. 
+Speech patterns are analyzed in the audio to determine recognizable patterns that are mapped to words. 
+To accomplish this, the software typically uses multiple models, including:
+
+- An acoustic model that converts the audio signal into phonemes (representations of specific sounds).
+- A language model that maps phonemes to words, usually using a statistical algorithm that predicts the most probable sequence of words based on the phonemes.
+
+The recognized words are typically converted to text, which you can use for various purposes, such as:
+- Providing closed captions for recorded or live videos
+- Creating a transcript of a phone call or meeting
+
+Speech synthesis is concerned with vocalizing data, usually by converting text to speech. A speech synthesis solution typically requires the following information:
+- The text to be spoken
+- The voice to be used to vocalize the speech
+
+To synthesize speech, the system typically tokenizes the text to break it down into individual words, and assigns phonetic sounds to each word. 
+- It then breaks the phonetic transcription into prosodic units (such as phrases, clauses, or sentences) to create phonemes that will be converted to audio format. 
+- These phonemes are then synthesized as audio and can be assigned a particular voice, speaking rate, pitch, and volume.
+
+You can use the output of speech synthesis for many purposes, including:
+- Generating spoken responses to user input
+- Creating voice menus for phone systems
+- Reading email or text messages aloud in hands-free scenarios
+- Broadcasting announcements in public locations, such as railway stations or airports
+
 ## Get started with speech on Azure
+Microsoft Azure offers speech recognition and synthesis capabilities through Azure Speech service, which supports many capabilities, including:
+- Speech to text
+- Text to speech
+- Speech translation
+
+### Speech to text
+You can use Azure Speech to text API to perform real-time or batch transcription of audio into a text format. The audio source for transcription can be a real-time audio stream from a microphone or an audio file.
+- Azure AI's Speech to text API is based on Microsoft's Universal Language Model. The data for the model is Microsoft-owned and deployed to Azure. 
+- The model is optimized for two scenarios, conversational and dictation. 
+- You can also create and train your own custom models including acoustics, language, and pronunciation if the prebuilt models from Microsoft don't provide what you need.
+
+**Real-time transcription**: 
+- Real-time speech to text allows you to transcribe audio streams to text. 
+- You can use real-time transcription for presentations, demos, or any other scenario where a person is speaking.
+In order for real-time transcription to work, your application needs to be listening for incoming audio from a microphone, or other audio input source such as an audio file. 
+
+**Batch transcription**:
+- Not all speech to text scenarios are real time. You might have audio recordings stored on a file share, a remote server, or even on Azure storage. 
+- You can point to audio files with a shared access signature (SAS) URI and asynchronously receive transcription results.
+- Batch transcription should be run in an asynchronous manner because the batch jobs are scheduled on a best-effort basis. 
+
+### Text to speech
+The text to speech API enables you to convert text input to audible speech, which can either be played directly through a computer speaker or written to an audio file.
+
+**Speech synthesis voices**: 
+- When you use the text to speech API, you can specify the voice to be used to vocalize the text.
+- You can also develop custom voices and use them with the text to speech API.
+
+### Speech translation
+Azure Speech Translation is a feature of the Azure Speech service. 
+- Azure Speech Translation enables real-time translation of spoken language by taking inputs of audio streams and returning text in a specified language. 
+- It works by first converting speech to text using automatic speech recognition (ASR), then translating the recognized text into one or more target languages using machine translation. 
+- The service supports a wide range of source and target languages and can deliver translations as text or synthesized speech. 
+- Developers can integrate this functionality into applications using REST APIs or SDKs.
+
 ## Use Azure Speech
-## Summary
+Azure Speech is available for use through several tools and programming languages including:
+- Studio interfaces
+- Command Line Interface (CLI)
+- REST APIs and Software Development Kits (SDKs)
+
+### Using studio interfaces
+You can create Azure Speech projects using Microsoft Foundry portal's Speech Playground.
+
+### Azure resources for Azure Speech
+To use Azure Speech in an application, you must create an appropriate resource in your Azure subscription. You can choose to create either of the following types of resource:
+- A Speech resource: choose this resource type if you only plan to use Azure Speech, or if you want to manage access and billing for the resource separately from other services.
+- A Foundry Tools resource: choose this resource type if you plan to use Azure Speech in combination with other Foundry Tools, and you want to manage access and billing for these services together.
+
 
 # Module 11: Introduction to Computer Vision Concepts (900 XP)
 ## Introduction
 ## Computer vision tasks and techniques
+A range of tasks and techniques in which AI software processes visual input, typically from images, videos, or live camera streams. 
+
+### Image Classification
+One of the oldest computer vision solutions, where a model trained with a large number of images is used to predict a text label based on an image's contents.
+
+### Object Detection
+Object detection models examine multiple regions in an image to find individual objects and their locations. 
+- The resulting prediction from the model includes which objects were detected and the specific regions of the image in which they appear, indicated by coordinates of rectangular bounding boxes.
+
+### Semantic Segmentation
+A model is trained to find objects and classify individual pixels in an image based on the object to which they belong. The result of this process is a much more precise prediction of the location of objects in an image.
+
+### Contextual Image Analysis
+The latest multimodal computer vision models are trained to find contextual relationships between objects in images and text that describes them. The result is an ability to semantically interpret an image to determine what objects and activities it depicts and generate appropriate descriptions or suggest relevant tags.
+
 ## Images and image processing
+
+To a computer, an image is an array of numeric pixel values. For example, consider the following array:
+
+Each pixel has a value between 0 (black) and 255 (white), with values between these bounds representing shades of gray. The image represented by this array looks like a grayscale image.
+
+In reality, most digital images are multidimensional and consist of three layers (channels) that represent red, green, and blue (RGB) color hues. 
+
+The resulting image combines these RGB channels to create a color image. The purple squares are represented by the combination Red: 150, Green: 0, Blue: 255, while the yellow squares in the center are represented by Red: 255, Green: 255, Blue: 0.
+
+### Filters
+A common way to perform image processing tasks is to apply filters that modify pixel values of an image to create a visual effect. A filter is defined by one or more arrays of pixel values, called filter kernels. 
+
+The kernel is then convolved across the image, calculating a weighted sum for each 3x3 patch of pixels and assigning the result to a new image. The filter is applied by moving across the image pixel by pixel.
+
+**Filter Application Example:**
+
+Starting with the top left patch of the grayscale image, multiplying each pixel value by the corresponding weight in the kernel and adding the results:
+
+(0 × -1) + (0 × -1) + (0 × -1) +
+(0 × -1) + (0 × 8) + (0 × -1) +
+(0 × -1) + (0 × -1) + (255 × -1) = -255
+
+The result (-255) becomes the first value in a new array. The filter kernel then moves one pixel to the right and repeats the operation:
+
+(0 × -1) + (0 × -1) + (0 × -1) +
+(0 × -1) + (0 × 8) + (0 × -1) +
+(0 × -1) + (0 × -1) + (255 × -1) = -510
+
+This process continues until the filter has been convolved across the entire image. 
+- Some values might be outside the 0-255 pixel value range, so values are adjusted to fit into that range. 
+- Because of the filter's shape, outside edge pixels aren't calculated, so a padding value (usually 0) is applied. 
+- The resulting array represents a new image in which the filter has transformed the original image.
+
+In this case, the filter has had the effect of highlighting the edges of shapes in the image. 
+- Because the filter is convolved across the image, this kind of image manipulation is often referred to as convolutional filtering. 
+- The filter used in this example is a particular type of filter (called a Laplace filter) that highlights edges in images. 
+- There are many other kinds of filters that can be used to create blurring, sharpening, color inversion, and other effects.
+
 ## Convolutional neural networks
+- The goal of computer vision is to extract meaning, or at least actionable insights, from images, which requires the creation of machine learning models that are trained to recognize features based on large volumes of existing images.
+
+### CNN Architecture for Image Classification
+
+One of the most common machine learning model architectures for computer vision is a convolutional neural network (CNN), a type of deep learning architecture. 
+- CNNs use filters to extract numeric feature maps from images, and then feed feature values into a deep learning model to generate a label prediction.
+
+**Training Example:**
+For an image classification scenario, you might train a CNN model with images of different kinds of fruit (apple, banana, orange) so that the label predicted is the type of fruit in a given image.
+
+- During the training process for a CNN, filter kernels are initially defined using randomly generated weight values. 
+- Then, as the training process progresses, the models predictions are evaluated against known label values, and the filter weights are adjusted to improve accuracy. 
+- Eventually, the trained fruit image classification model uses the filter weights that best extract features that help identify different kinds of fruit.
+
+### How CNNs Work 
+1. Images with known labels (for example, 0: apple, 1: banana, or 2: orange) are fed into the network to train the model.
+2. One or more layers of filters is used to extract features from each image as it is fed through the network. The filter kernels start with randomly assigned weights and generate arrays of numeric values called feature maps. Additional layers may "pool" or "downsize" the feature maps to create smaller arrays that emphasize the key visual features extracted by the filters.
+3. The feature maps are flattened into a single dimensional array of feature values.
+4. The feature values are fed into a fully connected neural network.
+5. The output layer of the neural network uses a softmax or similar function to produce a result that contains a probability value for each possible class, for example [0.2, 0.5, 0.3].
+
+During training the output probabilities are compared to the actual class label. The difference between the predicted and actual class scores is used to calculate the loss in the model, and the weights in the fully connected neural network and the filter kernels in the feature extraction layers are modified to reduce the loss.
+
+The training process repeats over multiple epochs until an optimal set of weights has been learned. Then, the weights are saved and the model can be used to predict labels for new images for which the label is unknown.
+
 ## Vision transformers and multimodal models
+Object detection models combine CNN feature extraction layers with the identification of regions of interest in images to locate multiple classes of object in the same image.
+
+### Semantic modeling for language - Transformers
+Transformers work by processing huge volumes of data, and encoding language tokens (representing individual words or phrases) as vector-based embeddings (arrays of numeric values). 
+- A technique called attention is used to assign embedding values that reflect different aspects of how each token is used in the context of other tokens. 
+- You can think of the embeddings as vectors in multidimensional space, in which each dimension embeds a linguistic attribute of a token based on its context in the training text, creating semantic relationships between tokens. 
+- Tokens that are commonly used in similar contexts define vectors that are more closely aligned than unrelated words.
+
+Tokens that are semantically similar are encoded in similar directions, creating a semantic language model that makes it possible to build sophisticated NLP solutions for text analysis, translation, language generation, and other tasks.
+
+### Semantic model for images - Vision transformers
+The success of transformers as a way to build language models has led AI researchers to consider whether the same approach would be effective for image data. 
+- The result is the development of vision transformer (ViT) models, in which a model is trained using a large volume of images. 
+    - Vit is a model that uses attention to process image patches and create contexual embeddings.
+- Instead of encoding text-based tokens, the transformer extracts patches of pixel values from the image, and generates a linear vector from the pixel values.
+
+
+The same attention technique that's used in language models to embed contextual relationships between tokens, is used to determine contextual relationships between the patches. 
+- The key difference is that instead of encoding linguistic characteristics into the embedding vectors, the embedded values are based on visual features, like color, shape, contrast, texture, and so on. 
+- The result is a set of embedding vectors that creates a multidimensional "map" of visual features based on how they are commonly seen in the training images.
+
+As with language models, the embeddings result in visual features that are used in similar context being assigned similar vector directions. 
+- For example, the visual features common in a hat may be contextually related to the visual features that are common in a head; because the two things are often seen together. 
+
+### Bringing it all together - Multimodal models
+- A language transformer creates embeddings that define a linguistic vocabulary that encode semantic relationships between words. 
+- A vision transformer creates a visual vocabulary that does the same for visual features. 
+- When the training data includes images with associated text descriptions, we can combine the encoders from both of these transformers in a multimodal model; and use a technique called cross-model attention to define a unified spatial representation of the embeddings, like this.
+
 ## Image generation
-## Summary
+The same multimodal model architecture that enables AI to create natural language responses to visual input, can also be used to enable it to create images in response to natural language prompts. By identifying the visual features associated with language, an image synthesis model can take a description of a desired image or video and generate it.
+
+Most modern image-generation models use a technique called diffusion
+Diffusion is a process in which a prompt is used to identify a set of related visual features that can be combined to create an image. 
+- The image is then created iteratively, starting with a random set of pixel values and removing "noise" to create structure. 
+- After each iteration, the model evaluates the image so far to compare it to the prompt, until a final image that depicts the desired scene is produced.
+
+For example, the prompt "A dog carrying a stick in its mouth" might result in a diffusion process with the following iterations:
+
+Some models can apply a similar process to generating video. The video generation process uses the same technique to identify visual features that are associated with language tokens, but also takes into account factors like the physical behavior of objects in the real world (such as ensuring that a dog walks with its feet on the ground) and the temporal progression (so that the video depicts a logical sequence of activity).
 
 # Module 12: Get Started with Computer Vision in Microsoft Foundry (800 XP)
 ## Introduction
 ## Understand Foundry Tools for computer vision
+
+Azure Vision service contains several products. Within Azure Vision, there are services that handle specific sets of tasks including:
+- **Azure Vision Image Analysis service**: Detects common objects in images, tags visual features, generates captions, and supports optical character recognition (OCR). 
+- **Azure AI Face service**: Detects, recognizes, and analyzes human faces in images. 
+
+There are many applications for Azure Vision's image analysis and face detection, analysis, and recognition. For example:
+- Search engine optimization: using image tagging and captioning for essential improvements in search ranking.
+- Content moderation: using image detection to help monitor the safety of images posted online.
+- Security: facial recognition can be used in building security applications, and in operating systems for unlocking devices.
+- Social media: facial recognition can be used to automatically tag known friends in photographs.
+- Missing persons: using public cameras systems, facial recognition can be used to identify if a missing person is in the image frame.
+- Identity validation: useful at ports of entry kiosks where a person holds a special entry permit.
+- Museum archive management: using optical character recognition to preserve information from paper documents.
+
 ## Understand Azure Vision Image Analysis capabilities
+Azure Vision's image analysis capabilities can be used with or without customization. Some of the capabilities that do not require customization include:
+- Describing an image with captions
+- Detecting common objects in an image
+- Tagging visual features
+- Optical character recognition
+
+### Describing an image with captions
+Azure Vision has the ability to analyze an image, evaluate the objects in it, and generate a human-readable description of the image. 
+
+### Detecting common objects in an image
+Azure Vision can identify thousands of common objects in images. 
+
+### Tagging visual features
+Azure Vision can suggest tags for an image based on its contents. Tags are associated with images as metadata. The tags summarize attributes of the image. 
+
+### Optical character recognition
+To detect text in images. 
+
+### Training custom models
+If the built-in models provided by Azure Vision don't meet your needs, you can use the service to train a custom model for image classification or object detection. Azure Vision builds custom models on the pre-trained foundation model, meaning that you can train sophisticated models by using relatively few training images.
+
+### Image classification
+An image classification model is used to predict the category, or class of an image. For example, you could train a model to determine which type of fruit is shown in an image
+
+### Object detection
+Object detection models detect and classify objects in an image, returning bounding box coordinates to locate each object. In addition to the built-in object detection capabilities in Azure Vision, you can train a custom object detection model with your own images. For example, you could use photographs of fruit to train a model that detects multiple fruits in an image, like this:
+
 ## Understand Azure Vision's Face service capabilities
+Azure AI Face supports specific use cases such as verifying user identity, liveness detection, touchless access control, and face redaction. 
+
+### Facial detection
+Face detection involves identifying regions of an image that contain a human face, typically by returning bounding box coordinates that form a rectangle around the face
+
+With Face, facial features can be used to train machine learning models to return other information, such as facial features such as nose, eyes, eyebrows, lips, and others.
+
+### Facial recognition
+A further application of facial analysis is to train a machine learning model to identify known individuals from their facial features. 
+
+When used responsibly, facial recognition is an important and useful technology that can improve efficiency, security, and customer experiences.
+
+### Azure AI Face service capabilities
+The Azure AI Face service can return the rectangle coordinates for any human faces that are found in an image, as well as a series of related attributes:
+
+- Accessories: indicates whether the given face has accessories including headwear, glasses, and mask, with confidence score between zero and one for each accessory.
+- Blur: how blurred the face is, which can be an indication of how likely the face is to be the main focus of the image.
+- Exposure: such as whether the image is underexposed or over exposed. This applies to the face in the image and not the overall image exposure.
+- Glasses: whether or not the person is wearing glasses.
+- Head pose: the face's orientation in a 3D space.
+- Mask: indicates whether the face is wearing a mask.
+- Noise: refers to visual noise in the image. If you have taken a photo with a high ISO setting for darker settings, you would notice this noise in the image. The image looks grainy or full of tiny dots that make the image less clear.
+- Occlusion: determines if there might be objects blocking the face in the image.
+- Quality For Recognition: a rating of high, medium, or low that reflects if the image is of sufficient quality to attempt face recognition on.
+
+### Responsible AI use
+Anyone can use the Face service to:
+- Detect the location of faces in an image.
+- Determine if a person is wearing glasses.
+- Determine if there's occlusion, blur, noise, or over/under exposure for any of the faces.
+- Return the head pose coordinates for each face in an image.
+
+The Limited Access policy requires customers to submit an intake form to access additional Azure AI Face service capabilities including:
+- Face verification: the ability to compare faces for similarity.
+- Face identification: the ability to identify named individuals in an image.
+- Liveness detection: the ability to detect and mitigate instances of recurring content and/or behaviors that indicate a violation of policies (e.g., such as if the input video stream is real or fake).
+
 ## Get started in Microsoft Foundry portal
-## Summary
+As one of many Foundry Tools, you can create solutions with Azure Vision in several ways including:
+- The Microsoft Foundry portal
+- A software development kit (SDK) or REST API
+
+### Azure resources for Azure Vision service
+To use Azure Vision, you need to create a resource for it in your Azure subscription. You can use either of the following resource types:
+- Azure Vision: A specific resource for the Azure Vision service. Use this resource type if you don't intend to use any other Foundry Tools, or if you want to track utilization and costs for your Azure Vision resource separately.
+- Foundry Tools: A general resource that includes Azure Vision along with many other Foundry Tools; such as Azure Language, Azure AI Custom Vision, Azure Translator, and others. Use this resource type if you plan to use multiple AI services and want to simplify administration and development.
+
+### Get started in Microsoft Foundry portal
+Microsoft Foundry provides a unified platform for enterprise AI operations, model builders, and application development. Microsoft Foundry portal provides a user interface based around hubs and projects. To use any of the Foundry Tools, including Azure Vision, you create a project in Microsoft Foundry, which will also create a Foundry Tools resource for you.
+
+Projects in Microsoft Foundry help you organize your work and resources effectively. Projects act as containers for datasets, models, and other resources, making it easier to manage and collaborate on AI solutions.
+
+Within Microsoft Foundry portal, you have the ability to try out service features by testing with sample images or uploading your own.
+
 
 # Module 13: Introduction to AI-Powered Information Extraction Concepts (1000 XP)
-## Introduction
 ## Overview of information extraction
+A comprehensive information extraction solution involves elements of computer vision to detect text in image-based data; and machine learning, or increasingly generative AI, to semantically map the extracted text to specific data fields.
+
+- Text detection and extraction from images using optical character recognition (OCR).
+- Value identification and mapping from the OCR results to data fields.
+
+For example, an AI-powered expense claim processing solution might automatically extract the relevant fields from receipts to process claims more efficiently.
+
+### Choosing the right approach
+When planning an information extraction solution, it's important to consider the requirements and constraints that the system must address. Some key considerations include:
+
+- Document characteristics. The documents from which you need to extract data are the basis of the whole solution. Consider factors like:
+    - Layout consistency: Standardized forms favor template-based approaches.
+    - Volume requirements: High-volume processing benefits from automated machine learning models that run on optimized system hardware.
+    - Accuracy requirements: Critical applications might need human-in-the-loop validation.
+- Technical infrastructure requirements and constraints. Your solution will require hardware and software infrastructure to run. Consider factors like:
+    - Security and privacy: The documents you're processing might contain sensitive data. Your solution must include adequate measures to secure access to the data and compliance with any industry requirements for storing and processing protected data.
+    - Processing power: Deep learning and generative AI models commonly used in information extraction solutions require significant computational resources.
+    - Latency requirements: Real-time processing might limit model complexity.
+    - Scalability needs: Cloud-based solutions offer better scalability for variable workloads.
+    - Integration complexity: Consider API compatibility and data format requirements.
+
+In many cases, information extraction solutions can be built using software services, such as Azure Document Intelligence in Microsoft Foundry Tools and Azure Content Understanding in Microsoft Foundry Tools. 
+
 ## Optical character recognition (OCR)
+A technology that automatically converts visual text in images - whether from scanned documents, photographs, or digital files—into editable, searchable text data. Rather than manually transcribing information, OCR enables automated data extraction from:
+- Scanned invoices and receipts
+- Digital photographs of documents
+- PDF files containing images of text
+- Screenshots and captured content
+- Forms and handwritten notes
+
+### The OCR pipeline: A step-by-step process
+The OCR pipeline consists of five essential stages that work together to transform visual information into text data.
+
+The stages in the OCR process are:
+1. Image acquisition and input.
+2. Preprocessing and image enhancement.
+3. Text region detection.
+4. Character recognition and classification.
+5. Output generation and post-processing.
+
+#### Stage 1: Image acquisition and input
+The pipeline begins when an image containing text enters the system. This could be:
+- A photograph taken with a smartphone camera.
+- A scanned document from a flatbed or document scanner.
+- A frame extracted from a video stream.
+- A PDF page rendered as an image.
+
+#### Stage 2: Preprocessing and image enhancement
+Before text detection begins, the following techniques are used to optimize the image for better recognition accuracy:
+- Noise reduction removes visual artifacts, dust spots, and scanning imperfections that could interfere with text detection. The specific techniques used to perform noise reduction include:
+    - Filtering and image processing algorithms: Gaussian filters, median filters, and morphological operations.
+    - Machine learning models: Denoising autoencoders and convolutional neural networks (CNNs) trained specifically for document image cleanup.
+- Contrast adjustment enhances the difference between text and background to make characters more distinct. Again, there are multiple possible approaches:
+    - Classical methods: Histogram equalization, adaptive thresholding, and gamma correction.
+    - Machine learning: Deep learning models that learn optimal enhancement parameters for different document types.
+- Skew correction detects and corrects document rotation, ensuring text lines are properly aligned horizontally. Techniques for skew correction include:
+    - Mathematical techniques: Hough transform for line detection, projection profiles, and connected component analysis.
+    - Neural network models: Regression CNNs that predict rotation angles directly from image features.
+- Resolution optimization adjusts image resolution to the optimal level for character recognition algorithms. You can optimize image resolution with:
+    - Interpolation methods: Bicubic, bilinear, and Lanczos resampling algorithms.
+    - Super-resolution models: Generative adversarial networks (GANs) and residual networks that intelligently upscale low-resolution text images.
+
+#### Stage 3: Text region detection
+The system analyzes the preprocessed image to identify areas that contain text by using the following techniques:
+
+- Layout analysis distinguishes between text regions, images, graphics, and white space areas. Techniques for layout analysis include:
+    - Traditional approaches: Connected component analysis, run-length encoding, and projection-based segmentation.
+    - Deep learning models: Semantic segmentation networks like U-Net, Mask R-CNN, and specialized document layout analysis models (for example, LayoutLM, or PubLayNet-trained models).
+- Text block identification groups individual characters into words, lines, and paragraphs based on spatial relationships. Common approaches include:
+    - Classical methods: Distance-based clustering, white space analysis, and morphological operations
+    - Neural networks: Graph neural networks and transformer models that understand spatial document structure
+- Reading order determination establishes the sequence in which text should be read (left-to-right, top-to-bottom for English). The correct order can be determined by:
+    - Rule-based systems: Geometric algorithms using bounding box coordinates and spatial heuristics.
+    - Machine learning models: Sequence prediction models and graph-based approaches that learn reading patterns from training data.
+- Region classification identifies different types of text regions (headers, body text, captions, tables).
+    - Feature-based classifiers: Support vector machines (SVMs) using handcrafted features like font size, position, and formatting
+    - Deep learning models: Convolutional neural networks and vision transformers trained on labeled document datasets
+
+#### Stage 4: Character recognition and classification
+This is the core of the OCR process where individual characters are identified:
+
+- Feature extraction: Analyzes the shape, size, and distinctive characteristics of each character or symbol.
+    - Traditional methods: Statistical features like moments, Fourier descriptors, and structural features (loops, endpoints, intersections)
+    - Deep learning approaches: Convolutional neural networks that automatically learn discriminative features from raw pixel data
+- Pattern matching: Compares extracted features against trained models that recognize different fonts, sizes, and writing styles.
+    - Template matching: Direct comparison with stored character templates using correlation techniques
+    - Statistical classifiers: Hidden Markov Models (HMMs), Support Vector Machines, and k-nearest neighbors using feature vectors
+    - Neural networks: Multi-layer perceptrons, CNNs, and specialized architectures like LeNet for digit recognition
+    - Advanced deep learning: Residual networks (ResNet), DenseNet, and EfficientNet architectures for robust character classification
+- Context analysis: Uses surrounding characters and words to improve recognition accuracy through dictionary lookups and language models.
+    - N-gram models: Statistical language models that predict character sequences based on probability distributions.
+    - Dictionary-based correction: Lexicon lookup with edit distance algorithms (such as Levenshtein distance) for spelling correction.
+    - Neural language models: LSTM and transformer-based models (like BERT variants) that understand contextual relationships.
+    - Attention mechanisms: Transformer models that focus on relevant parts of the input when making character predictions.
+- Confidence scoring: Assigns probability scores to each recognized character based on how certain the system is about its identification.
+    - Bayesian approaches: Probabilistic models that quantify uncertainty in character predictions.
+    - Softmax outputs: Neural network final layer activations converted to probability distributions.
+    - Ensemble methods: Combining predictions from multiple models to improve confidence estimates.
+
+#### Stage 5: Output generation and post-processing
+The final stage converts recognition results into usable text data:
+- Text compilation: Assembles individual character recognitions into complete words and sentences.
+    - Rule-based assembly: Deterministic algorithms that combine character predictions using spatial proximity and confidence thresholds.
+    - Sequence models: Recurrent neural networks (RNNs) and Long Short-Term Memory (LSTM) networks that model text as sequential data.
+    - Attention-based models: Transformer architectures that can handle variable-length sequences and complex text layouts.
+- Format preservation: Maintains document structure including paragraphs, line breaks, and spacing.
+    - Geometric algorithms: Rule-based systems using bounding box coordinates and white space analysis.
+    - Layout understanding models: Graph neural networks and document AI models that learn structural relationships.
+    - Multi-modal transformers: Models like LayoutLM that combine text and layout information for structure preservation.
+- Coordinate mapping: Records the exact position of each text element within the original image.
+    - Coordinate transformation: Mathematical mapping between image pixels and document coordinates.
+    - Spatial indexing: Data structures like R-trees and quad-trees for efficient spatial queries.
+    - Regression models: Neural networks trained to predict precise text positioning coordinates.
+- Quality validation: Applies spelling and grammar checks to identify potential recognition errors.
+    - Dictionary-based validation: Lookup against comprehensive word lists and specialized domain vocabularies.
+    - Statistical language models: N-gram models and probabilistic parsers for grammar and context validation.
+    - Neural language models: Pre-trained models like GPT or BERT fine-tuned for OCR error detection and correction.
+    - Ensemble validation: Combining multiple validation approaches to improve error detection accuracy.
+
 ## Field extraction and mapping
+Field extraction is the process of taking text output from OCR and mapping individual text values it to specific, labeled data fields that correspond to meaningful business information. 
+- While OCR tells you what text exists in a document, field extraction tells you what that text means and where it belongs in your business systems.
+
+### The field extraction pipeline
+Field extraction follows a systematic pipeline that transforms OCR output into structured data.
+
+The stages in the field extraction process are:
+- OCR output ingestion.
+- Field detection and candidate identification.
+- Field mapping and association.
+- Data normalization and standardization.
+- Integration with business processes and systems.
+
+#### Stage 1: OCR output ingestion
+The process begins with the structured output from the OCR pipeline, which can include:
+- Raw text content: The actual characters and words extracted from the document
+- Positional metadata: Bounding box coordinates, page locations, and reading order information
+- Confidence scores: OCR engine confidence levels for each text element
+- Layout information: Document structure, line breaks, paragraph boundaries
+
+#### Stage 2: Field detection and candidate identification
+This stage identifies potential field value in the OCR output. There are multiple approaches that can be used, independently or in combination, to determine the likely fields in the OCR results.
+
+**Template-based detection**
+Templates for field detection rely on rule-based pattern matching. Field identification can be accomplished using techniques such as:
+- Predefined document layouts with known field positions and anchor keywords.
+- Searches for label-value pairs like "Invoice Number:", "Date:", "Total:".
+- Regular expressions and string matching algorithms.
+
+Advantages of a template-based approach include high accuracy for known document types, fast processing, and explainable results.
+
+Limitations of the approach include the requirement for manual template creation, and complexity caused by layout variations or field naming inconsistencies.
+
+**Machine learning-based detection**
+Instead of hard-coded logic to extract fields based on known names and locations, you can use a corpus of example documents to train a machine learning model that extracts the fields based on learned relationships. Transformer-based models in particular are good at applying contextual cues to identify patterns, and so are often the basis of a field detection solution.
+
+Training approaches for field detection machine learning models include:
+- Supervised learning: Trained on labeled datasets with known field locations.
+- Self-supervised learning: Pre-trained on large document corpora to understand layout patterns.
+- Multi-modal learning: Combines text, visual, and positional features.
+- Advanced model architectures, such as:
+    - Graph Neural Networks (GNNs) that model spatial relationships between text elements as graph connections.
+    - Attention mechanisms that focus on relevant document regions when predicting field values.
+    - Sequence-to-sequence models that transform unstructured text sequences into structured field assignments.
+
+**Generative AI for schema-based extraction**
+Recent advances in large language models (LLMs) have led to the emergence of generative AI-based field detection techniques, which enable more efficient and effective field detection through:
+- Prompt-based extraction in which you provide the LLM with document text and a schema definition, and it matches the text to the fields in the schema.
+- Few-shot learning in which you can train models with minimal examples to extract custom fields.
+- Chain-of-thought reasoning that guides models through step-by-step field identification logic.
+
+### Stage 3: Field mapping and association
+After candidate values are identified, they must be mapped to specific schema fields:
+
+#### Key-value pairing techniques
+In many cases, data fields in a document or form are discrete values that can be mapped to keys - for example, the vendor name, date, and total amount in a receipt or invoice. Common techniques used for key-value pairing include:
+
+**Proximity analysis:**
+
+- Spatial clustering: Group nearby text elements using distance algorithms.
+- Reading order analysis: Follow natural text flow to associate labels with values.
+- Geometric relationships: Use alignment, indentation, and positioning patterns.
+
+**Linguistic pattern recognition:**
+
+- Named entity recognition (NER): Identify specific entity types (dates, amounts, names).
+- Part-of-speech tagging: Understand grammatical relationships between labels and values.
+- Dependency parsing: Analyze syntactic relationships in text.
+
+#### Table and structured content processing
+Some documents include more complex structures of text, such as tables. For example, a receipt or invoice might include a table of line items with columns for the item name, price, and the quantity purchased.
+
+The presence of a table can be determined using several techniques, including:
+- Specialized convolutional neural network (CNN) architectures for table structure recognition.
+- Object detection approaches adapted for table cell identification.
+- Graph-based parsing approaches that model table structure as graph relationships between cells.
+
+To map the values in the cells in a table to fields, the field extraction solution might employ one or more of the following techniques:
+- Row-column association to map table cells to specific field schemas.
+- Header detection to identify column headers to understand field meanings.
+- Hierarchical processing to handle nested table structures and sub-totals.
+
+#### Confidence scoring and validation
+Field extraction accuracy depends on many factors, and the algorithms and models used to implement the solution are subject to potential misidentification or value interpretation errors. To account for this, various techniques are employed to evaluate the accuracy of the predicted field values; including:
+- OCR confidence: Inheriting confidence scores from the underlying text recognition.
+- Pattern matching confidence: Scoring based on how well extraction matches expected patterns.
+- Context validation: Verifying that field values make sense in document context.
+- Cross-field validation: Checking relationships between extracted fields (for example, verifying that line item subtotals sum to the overall invoice total).
+
+### Stage 4: Data normalization and standardization
+Raw extracted values are generally transformed into consistent formats and checked for validity.
+
+#### Format standardization
+Examples of format standardization that can be implemented include:
+- Date normalization:
+    - Format detection: Identify various date formats (MM/DD/YYYY, DD-MM-YYYY, etc.).
+    - Parsing algorithms: Convert to standardized ISO formats.
+    - Ambiguity resolution: Handle cases where date format is unclear.
+- Currency and numeric processing:
+    - Symbol recognition: Handle different currency symbols and thousand separators.
+    - Decimal normalization: Standardize decimal point representation across locales.
+    - Unit conversion: Convert between different measurement units as needed.
+- Text standardization:
+    - Case normalization: Apply consistent capitalization rules.
+    - Encoding standardization: Handle different character encodings and special characters.
+    Abbreviation expansion: Convert common abbreviations to full forms.
+
+#### Data Validation and Quality Assurance
+As well as formatting the extracted fields, the standardization process enables further validation of the values that have been extracted through techniques like:
+
+Rule-based validation:
+- Format checking: Verify extracted values match expected patterns (phone numbers, email addresses).
+- Range validation: Ensure numeric values fall within reasonable bounds.
+- Required field checking: Confirm all mandatory fields are present.
+Statistical validation:
+- Outlier detection: Identify unusually high or low values that might indicate extraction errors.
+- Distribution analysis: Compare extracted values against historical patterns.
+Cross-document validation: Check consistency across related documents.
+
+### Stage 5: Integration with business processes and systems
+The final stage of the process usually involves integrating the extracted field values into a business process or system:
+
+#### Schema mapping
+The extracted fields might need to be further transformed or reformatted so they align with application schemas used for data ingestion into downstream systems. For example:
+- Database schemas: Map extracted fields to specific database columns and tables.
+- API payloads: Format data for REST API consumption by downstream systems.
+- Message queues: Prepare structured messages for asynchronous processing.
+
+The schema-mapping process might involve transformations such as:
+- Field renaming: Map extracted field names to target system conventions.
+- Data type conversion: Ensure values match expected data types in target systems.
+- Conditional logic: Apply business rules for field transformation and derivation.
+
+#### Quality metrics and reporting
+Another common task after the extraction process has finished is to evaluate and report on the quality of the extracted data. The report can include information such as:
+- Field-level confidence scores: Individual confidence ratings for each extracted field.
+- Document-level quality assessment: Overall extraction success metrics.
+- Error categorization: Classify extraction failures by type and cause
 ## Summary
 
 # Module 14: Get Started with AI-Powered Information Extraction in Microsoft Foundry (1000 XP)
